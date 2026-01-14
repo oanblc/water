@@ -34,9 +34,9 @@ define('INCLUDES_PATH', ROOT_PATH . 'includes/');
 define('ASSETS_URL', SITE_URL . '/assets');
 
 // İletişim bilgileri
-define('CONTACT_PHONE', '0533 294 0106');
-define('CONTACT_PHONE_LINK', 'tel:+905332940106');
-define('CONTACT_WHATSAPP', '905332940106');
+define('CONTACT_PHONE', '0533 394 0106');
+define('CONTACT_PHONE_LINK', 'tel:+905333940106');
+define('CONTACT_WHATSAPP', '905333940106');
 define('CONTACT_EMAIL', 'iletisim@waterprimesuaritma.com');
 define('CONTACT_ADDRESS', 'Ankara');
 define('WORKING_HOURS', 'Hafta içi 09:00 - 18:00');
