@@ -34,7 +34,7 @@ define('INCLUDES_PATH', ROOT_PATH . 'includes/');
 define('ASSETS_URL', SITE_URL . '/assets');
 
 // İletişim bilgileri
-define('CONTACT_PHONE', '0533 294 01 06');
+define('CONTACT_PHONE', '0533 294 0106');
 define('CONTACT_PHONE_LINK', 'tel:+905332940106');
 define('CONTACT_WHATSAPP', '905332940106');
 define('CONTACT_EMAIL', 'iletisim@waterprimesuaritma.com');

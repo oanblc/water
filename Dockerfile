@@ -16,5 +16,5 @@ RUN mkdir -p assets/images/products assets/images/uploads && \
 # Expose port
 EXPOSE 8080
 
-# Start PHP built-in server
-CMD php -S 0.0.0.0:${PORT:-8080} -t .
+# Start PHP built-in server with router
+CMD php -S 0.0.0.0:${PORT:-8080} router.php
