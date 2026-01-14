@@ -1,0 +1,112 @@
+# Water Prime Su Arıtma - Apache Ayarları
+
+# Rewrite Engine
+RewriteEngine On
+RewriteBase /waterprime/
+
+# HTTPS yönlendirme (canlıda aktif edilecek)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# www yönlendirme (canlıda aktif edilecek)
+# RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+# RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# index.php gizle
+RewriteCond %{THE_REQUEST} /index\.php [NC]
+RewriteRule ^(.*)index\.php$ /$1 [R=301,L]
+
+# Trailing slash kaldır
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} (.+)/$
+RewriteRule ^ %1 [R=301,L]
+
+# SEO dostu URL'ler
+# Ürün detay: /urun/slug
+RewriteRule ^urun/([a-z0-9-]+)/?$ pages/urun-detay.php?slug=$1 [L,QSA]
+
+# Ürün kategorisi: /urunler/kategori-slug
+RewriteRule ^urunler/([a-z0-9-]+)/?$ pages/urunler.php?kategori=$1 [L,QSA]
+
+# Ürünler sayfası
+RewriteRule ^urunler/?$ pages/urunler.php [L,QSA]
+
+# Hizmet detay: /hizmet/slug
+RewriteRule ^hizmet/([a-z0-9-]+)/?$ pages/hizmet-detay.php?slug=$1 [L,QSA]
+
+# Hizmetler sayfası
+RewriteRule ^hizmetler/?$ pages/hizmetler.php [L,QSA]
+
+# Blog detay: /blog/slug
+RewriteRule ^blog/([a-z0-9-]+)/?$ pages/blog-detay.php?slug=$1 [L,QSA]
+
+# Blog sayfası
+RewriteRule ^blog/?$ pages/blog.php [L,QSA]
+
+# Statik sayfalar
+RewriteRule ^hakkimizda/?$ pages/hakkimizda.php [L,QSA]
+RewriteRule ^neden-su-aritma/?$ pages/neden-su-aritma.php [L,QSA]
+RewriteRule ^referanslar/?$ pages/referanslar.php [L,QSA]
+RewriteRule ^sss/?$ pages/sss.php [L,QSA]
+RewriteRule ^iletisim/?$ pages/iletisim.php [L,QSA]
+RewriteRule ^teklif-al/?$ pages/teklif-al.php [L,QSA]
+
+# Hassas dosyalara erişimi engelle
+<FilesMatch "^(config|includes|database\.sql)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Config klasörüne erişimi engelle
+RewriteRule ^config/ - [F,L]
+RewriteRule ^includes/ - [F,L]
+
+# .htaccess dosyasına erişimi engelle
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# PHP dosya uzantılarını gizle
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+# Hata sayfaları
+ErrorDocument 404 /waterprime/pages/404.php
+ErrorDocument 500 /waterprime/pages/500.php
+
+# Güvenlik başlıkları
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Önbellekleme (canlıda)
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType image/x-icon "access plus 1 year"
+</IfModule>
+
+# GZIP sıkıştırma
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json
+</IfModule>
+
+# PHP ayarları
+<IfModule mod_php.c>
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 300
+    php_value max_input_time 300
+</IfModule>

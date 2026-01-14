@@ -1,0 +1,31 @@
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+error_log
+
+# Uploads (kullanıcı içerikleri)
+assets/images/products/*
+!assets/images/products/.gitkeep
+assets/images/uploads/*
+!assets/images/uploads/.gitkeep
+
+# Cache
+cache/
+tmp/
+
+# Environment (production için ayrı config gerekecek)
+# config/database.php - bu dosya repoda kalacak ama production için değiştirilmeli
+
+# Vendor (eğer composer kullanılırsa)
+vendor/
+
+# Node
+node_modules/
