@@ -9,12 +9,31 @@ $uri = rawurldecode($uri);
 
 // Statik dosyalar (assets, images, css, js)
 if (preg_match('/\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$/i', $uri)) {
-    return false; // PHP built-in server statik dosyayi serve etsin
+    return false;
 }
 
-// Admin panel
-if (strpos($uri, '/admin') === 0) {
-    return false; // Admin dosyalarini direkt serve et
+// PHP dosyalari direkt calistir (admin panel dahil)
+if (preg_match('/\.php$/', $uri)) {
+    $filePath = __DIR__ . $uri;
+    if (file_exists($filePath)) {
+        require $filePath;
+        return true;
+    }
+}
+
+// Admin panel - index.php'ye yonlendir
+if (preg_match('#^/admin/?$#', $uri)) {
+    require __DIR__ . '/admin/index.php';
+    return true;
+}
+
+// Admin alt sayfalari
+if (preg_match('#^/admin/([a-z0-9-]+)$#', $uri, $matches)) {
+    $filePath = __DIR__ . '/admin/' . $matches[1] . '.php';
+    if (file_exists($filePath)) {
+        require $filePath;
+        return true;
+    }
 }
 
 // Route tanimlari
