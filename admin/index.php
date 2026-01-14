@@ -7,7 +7,7 @@ session_start();
 
 // Zaten giriş yapmışsa dashboard'a yönlendir
 if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
-    header('Location: dashboard.php');
+    header('Location: /admin/dashboard.php');
     exit;
 }
 
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['admin_username'] = $user['username'];
                 $_SESSION['admin_fullname'] = $user['full_name'];
 
-                header('Location: dashboard.php');
+                header('Location: /admin/dashboard.php');
                 exit;
             } else {
                 $error = 'Kullanıcı adı veya şifre hatalı.';

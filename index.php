@@ -293,7 +293,7 @@ include INCLUDES_PATH . 'header.php';
                     <div class="text-gray-600">Memnuniyet</div>
                 </div>
                 <div class="bg-white p-8 rounded-2xl shadow-sm text-center">
-                    <div class="text-4xl md:text-5xl font-bold text-accent mb-2">24/7</div>
+                    <div class="text-4xl md:text-5xl font-bold text-accent mb-2">7/24</div>
                     <div class="text-gray-600">Destek</div>
                 </div>
             </div>
