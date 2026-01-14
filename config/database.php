@@ -6,7 +6,7 @@
 // Railway environment variables veya localhost defaults
 define('DB_HOST', getenv('MYSQLHOST') ?: 'localhost');
 define('DB_PORT', getenv('MYSQLPORT') ?: '3306');
-define('DB_NAME', getenv('MYSQLDATABASE') ?: 'waterprime');
+define('DB_NAME', getenv('MYSQLDATABASE') ?: getenv('MYSQL_DATABASE') ?: 'waterprime');
 define('DB_USER', getenv('MYSQLUSER') ?: 'root');
 define('DB_PASS', getenv('MYSQLPASSWORD') ?: ''); // XAMPP varsayılan şifre boş
 
