@@ -3,10 +3,12 @@
  * Water Prime Su Arıtma - Veritabanı Bağlantı Ayarları
  */
 
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'waterprime');
-define('DB_USER', 'root');
-define('DB_PASS', ''); // XAMPP varsayılan şifre boş
+// Railway environment variables veya localhost defaults
+define('DB_HOST', getenv('MYSQLHOST') ?: 'localhost');
+define('DB_PORT', getenv('MYSQLPORT') ?: '3306');
+define('DB_NAME', getenv('MYSQLDATABASE') ?: 'waterprime');
+define('DB_USER', getenv('MYSQLUSER') ?: 'root');
+define('DB_PASS', getenv('MYSQLPASSWORD') ?: ''); // XAMPP varsayılan şifre boş
 
 // PDO bağlantısı
 function getDB() {
@@ -14,7 +16,7 @@ function getDB() {
 
     if ($pdo === null) {
         try {
-            $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
+            $dsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";charset=utf8mb4";
             $options = [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,

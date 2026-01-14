@@ -3,15 +3,28 @@
  * Water Prime Su Arıtma - Site Ayarları
  */
 
-// Hata raporlama (canlıda kapatılacak)
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Hata raporlama (production'da kapatılacak)
+$isProduction = getenv('RAILWAY_ENVIRONMENT') || getenv('MYSQLHOST');
+if ($isProduction) {
+    error_reporting(0);
+    ini_set('display_errors', 0);
+} else {
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+}
 
 // Zaman dilimi
 date_default_timezone_set('Europe/Istanbul');
 
-// Site URL
-define('SITE_URL', 'http://localhost/waterprime');
+// Site URL - Railway veya localhost
+if (getenv('RAILWAY_PUBLIC_DOMAIN')) {
+    define('SITE_URL', 'https://' . getenv('RAILWAY_PUBLIC_DOMAIN'));
+} elseif (isset($_SERVER['HTTP_HOST'])) {
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    define('SITE_URL', $protocol . '://' . $_SERVER['HTTP_HOST']);
+} else {
+    define('SITE_URL', 'http://localhost/waterprime');
+}
 define('SITE_NAME', 'Water Prime Su Arıtma');
 define('SITE_SLOGAN', 'Saf Su, Sağlıklı Yaşam');
 
